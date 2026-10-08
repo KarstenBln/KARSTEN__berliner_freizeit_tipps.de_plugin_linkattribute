@@ -24,9 +24,9 @@ verlinken.
 
 | # | Fall | Handlung | Erwartet | Beobachtung |
 |---|---|---|---|---|
-| A1 | Schaltfläche erscheint | Cursor in den Link setzen | In der Werkzeugleiste erscheint das Kettensymbol **Linkattribute** (hinter den Standardwerkzeugen, ggf. unter „Mehr" ▾) | |
+| A1 | Schaltfläche erscheint | Cursor in den Link setzen | Im Aufklappmenü `⌄` der Werkzeugleiste steht der Eintrag **Linkattribute**. (Die Leiste rendert eigene Plätze nur für `bold`, `italic`, `link` und `unknown`; alles andere sammelt sie in diesem Menü — `block-editor.min.js`, FormatToolbar) | **erledigt 08.10.** |
 | A2 | Schaltfläche fehlt ohne Link | Cursor in unverlinkten Text setzen | Keine Schaltfläche **Linkattribute** | |
-| A3 | Popover öffnen | Auf **Linkattribute** klicken | Popover öffnet **am Link**, nicht an der Werkzeugleiste; Felder: Sponsored, Nofollow, Link-Titel | |
+| A3 | Popover öffnen | Auf **Linkattribute** klicken | Popover öffnet **am Link**, nicht an der Werkzeugleiste; Felder: Sponsored, Nofollow, Link-Titel | **erledigt 08.10.** |
 | A4 | Rechte Seitenleiste unberührt | Blockeinstellungen rechts öffnen | **Kein** Abschnitt des Plugins dort (Auftrag: ausdrücklich nicht die Seitenleiste) | |
 | A5 | Fokus beim Öffnen | Popover öffnen, nichts anklicken, Leertaste | Fokus steht auf dem ersten Bedienelement (Sponsored), Leertaste schaltet es — Fokus landet nicht im Fließtext | |
 | A6 | Tastaturbedienung | Mit Tab durch alle Felder bis **Übernehmen**, mit Umschalt+Tab zurück | Fokus bleibt im Popover, jedes Feld ist erreichbar und sichtbar umrandet | |
@@ -53,6 +53,24 @@ verlinken.
 | A27 | Code-Ansicht hin und zurück | Strg/Cmd + Umschalt + Alt + M, zurück in die visuelle Ansicht | Keine Validierungswarnung, Attribute unverändert | |
 | A28 | Zusammen mit Textauszeichnung | Einen Teil des Linktextes fett setzen, dann Attribute ändern | Fett bleibt erhalten, Link bleibt ein Element | |
 | A29 | Fehlerkonsole | Browser-Konsole während A1–A28 offen halten | Keine Fehler oder Warnungen mit `bft` | |
+
+## D. Zusammenspiel mit Rank Math
+
+Rank Math meldet `core/link` ab und mit einer eigenen Oberfläche wieder an
+(`assets/admin/js/gutenberg-formats.js`) und ergänzt im Classic-Dialog
+Linktitel, nofollow und sponsored (`assets/admin/js/wplink.js`). Diese Fälle
+gibt es deshalb nur auf dieser Seite — sie standen nicht im ursprünglichen
+Auftrag.
+
+| # | Fall | Handlung | Erwartet | Beobachtung |
+|---|---|---|---|---|
+| D1 | Titel überlebt eine Linkänderung | Titel über **Linkattribute** setzen, dann im Rank-Math-Dialog „Set to nofollow" anhaken, Anwenden | HTML enthält **beides**: `title="…"` und `rel="nofollow"` | **erledigt 08.10.** |
+| D2 | Rank-Math-Dialog unverändert | Dialog öffnen | Alle Felder von Rank Math sind da, Verhalten wie gewohnt | |
+| D3 | sponsored über Rank Math | In Rank Math „Set to sponsored" setzen, dann unser Popover öffnen | Unser Kästchen **Sponsored** ist angehakt — beide lesen dasselbe `rel` | |
+| D4 | sponsored zurücknehmen | In Rank Math „Set to sponsored" wieder entfernen, Anwenden | `sponsored` ist weg und bleibt weg (wir schreiben `rel` nicht zurück) | |
+| D5 | Adresse ändern | Titel setzen, dann im Rank-Math-Dialog die URL ändern, Anwenden | Neue Adresse, Titel bleibt | |
+| D6 | Link entfernen | Titel setzen, dann Verknüpfung entfernen | Kein `<a>` mehr, kein zurückbleibendes `title` irgendwo | |
+| D7 | Linktext ändern | Titel setzen, dann im Rank-Math-Dialog den Linktext ändern, Anwenden | Neuer Text; Titel bleibt **oder** ist weg — beides ist vertretbar, aber notieren, was passiert | |
 
 ## B. Classic-Editor / Classic-Block (Punkte 33–40)
 

@@ -205,8 +205,17 @@ sie nicht. Betroffen sind insbesondere:
 * Kopieren und Einfügen von Text mit Links
 * Block duplizieren
 * Wechsel zwischen visueller Ansicht und Code-Ansicht
-* Das gesamte Classic-/TinyMCE-Modul (Punkte 33–40) — der Code folgt der
-  dokumentierten TinyMCE-4-Schnittstelle, ist aber **nicht im Browser erprobt**
+* Das Classic-/TinyMCE-Modul (Punkte 33–40) ist seit 1.0.2 gegen das gebaute
+  Bundle mit nachgebautem TinyMCE geprüft (`tests/classic-modul.test.js`,
+  zehn Fälle). Der Dialog selbst — Aussehen, Fokus, Tastaturbedienung — ist
+  weiterhin **nicht im Browser erprobt**
+
+**Nachtrag 1.0.2:** Die Annahme, der Code folge „der dokumentierten
+TinyMCE-4-Schnittstelle", war falsch. TinyMCE instanziiert externe Plugins mit
+`new`; die übergebene Arrow Function liess sich nicht konstruieren, und das
+Modul brach bei jedem Editorstart mit „Failed to initialize plugin" ab. Der
+Fehler entstand erst im Bundle — webpack liess die Arrow Function stehen.
+Deshalb prüft der neue Test das Bundle, nicht die Quelle.
 
 **Plugin-Lebenszyklus** (Punkte 41–48) außer der Aktivierung: Deaktivieren,
 Aktualisieren und Deinstallieren sind nicht durchgespielt. Da das Plugin weder

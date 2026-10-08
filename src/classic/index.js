@@ -117,7 +117,12 @@ function registrieren() {
 		return;
 	}
 
-	tinymce.PluginManager.add( PLUGIN, ( editor ) => {
+	// Bewusst eine gewoehnliche Funktion und keine Arrow Function: TinyMCE
+	// instanziiert externe Plugins mit `new`
+	// (tinymce.min.js: `var i = new r(t, o, t.$)` in der Plugin-Initialisierung).
+	// Eine Arrow Function hat keinen [[Construct]]-Slot — der Aufruf wirft, und
+	// TinyMCE meldet "Failed to initialize plugin".
+	tinymce.PluginManager.add( PLUGIN, function ( editor ) {
 		editor.addButton( PLUGIN, {
 			title: __( 'Linkattribute', 'bft-advanced-link-attributes' ),
 			icon: 'dashicon dashicons-admin-links',

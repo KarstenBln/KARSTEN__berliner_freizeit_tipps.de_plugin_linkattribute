@@ -2,6 +2,25 @@
 
 Dieses Plugin folgt [semantischer Versionierung](https://semver.org/lang/de/).
 
+## 1.0.2 — 08.10.2026
+
+### Behoben
+
+* **Das Classic-Modul startete nie.** TinyMCE instanziiert externe Plugins mit
+  `new` (`tinymce.min.js`: `var i = new r(t, o, t.$)` in der
+  Plugin-Initialisierung, abgefangen in `pluginInitError`). Uebergeben wurde
+  eine Arrow Function — die hat keinen `[[Construct]]`-Slot, der Aufruf wirft,
+  und TinyMCE meldete im Editor „Failed to initialize plugin: bftlinkattrs".
+  Jetzt eine gewoehnliche Funktion.
+
+### Hinzugefuegt
+
+* `tests/classic-modul.test.js`: zehn Pruefungen **gegen das gebaute Bundle**
+  mit nachgebautem TinyMCE — Anmeldung unter dem erwarteten Namen, Aufruf mit
+  `new`, Sperren und Freigeben der Schaltflaeche, Vorbelegung des Dialogs,
+  Schreiben und Entfernen von `rel` und `title`, ein Rueckgaengig-Schritt.
+  Gegen die alte Fassung des Bundles fallen neun davon durch.
+
 ## 1.0.1 — 08.10.2026
 
 ### Geändert

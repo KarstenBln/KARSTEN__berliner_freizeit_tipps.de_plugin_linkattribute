@@ -3,7 +3,7 @@
  * Plugin Name:       BFT Advanced Link Attributes
  * Plugin URI:        https://github.com/KarstenBln/KARSTEN__berliner_freizeit_tipps.de_plugin_linkattribute
  * Description:       Ergänzt die Linkbearbeitung im Block- und im Classic-Editor um sponsored, nofollow und einen Link-Titel. Ohne Ersatzblöcke, ohne Frontend-Code.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      7.4
@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) || exit;
  * in Ruhe. Ein eigener Update-Server ist für 1.0 nicht vorgesehen, die Angabe
  * hält den Weg dorthin aber offen.
  */
-const VERSION = '1.0.1';
+const VERSION = '1.0.2';
 const DATEI   = __FILE__;
 const VERZ    = __DIR__;
 

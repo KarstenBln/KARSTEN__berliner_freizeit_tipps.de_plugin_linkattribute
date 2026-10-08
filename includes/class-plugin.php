@@ -26,7 +26,12 @@ final class Plugin {
 	 * Registriert alles, was das Plugin tut.
 	 */
 	public function start(): void {
-		$this->uebersetzungen_laden();
+		// Nur im Backend: Die Oberflaeche des Plugins gibt es ausschliesslich
+		// dort. Im Frontend wuerde der Aufruf auf jeder Seite nach
+		// Sprachdateien suchen, die niemand braucht.
+		if ( is_admin() ) {
+			$this->uebersetzungen_laden();
+		}
 
 		( new Assets() )->start();
 	}

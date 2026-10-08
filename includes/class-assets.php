@@ -49,7 +49,12 @@ final class Assets {
 		// angefasst (Auftrag 8).
 		add_filter( 'mce_external_plugins', array( $this, 'tinymce_plugin' ) );
 		add_filter( 'mce_buttons', array( $this, 'tinymce_schaltflaeche' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'tinymce_abhaengigkeiten' ) );
+		// Nicht an 'admin_enqueue_scripts': der laeuft auf jeder
+		// Backend-Seite, auch auf dem Dashboard und in den Listen, wo gar
+		// kein Editor vorkommt. 'wp_enqueue_editor' feuert der Kern genau
+		// dann, wenn er einen Editor aufbaut (class-wp-editor.php,
+		// enqueue_scripts) — und sagt im Parameter, ob TinyMCE dabei ist.
+		add_action( 'wp_enqueue_editor', array( $this, 'tinymce_abhaengigkeiten' ) );
 	}
 
 	/**
@@ -167,13 +172,21 @@ final class Assets {
 	 * vorbei. Das gebaute Bundle greift zur Laufzeit auf wp.i18n zu — das muss
 	 * also unabhängig davon geladen sein.
 	 *
+	 * @param array $zu_laden Vom Kern uebergeben: welche Editoren geladen werden.
+	 *
 	 * Für die Übersetzungen wird ein eigener, leerer Handle angemeldet.
 	 * `wp_set_script_translations()` hängt `wp-i18n` an die Abhängigkeiten des
 	 * übergebenen Handles (class-wp-scripts.php, set_translations). Auf
 	 * `wp-i18n` selbst angewendet hieße das: wp-i18n hängt von sich selbst ab —
 	 * und `WP_Dependencies::all_deps()` läuft endlos.
 	 */
-	public function tinymce_abhaengigkeiten(): void {
+	public function tinymce_abhaengigkeiten( $zu_laden = array() ): void {
+		// Ohne TinyMCE gibt es keine Werkzeugleiste, in der die Schaltflaeche
+		// sitzen koennte — dann auch nichts zu laden.
+		if ( is_array( $zu_laden ) && isset( $zu_laden['tinymce'] ) && ! $zu_laden['tinymce'] ) {
+			return;
+		}
+
 		$bundle = $this->bundle( 'classic' );
 
 		if ( null === $bundle ) {

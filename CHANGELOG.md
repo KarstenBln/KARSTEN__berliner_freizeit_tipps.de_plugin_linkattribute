@@ -4,6 +4,18 @@ Dieses Plugin folgt [semantischer Versionierung](https://semver.org/lang/de/).
 
 ## 1.0.1 — 08.10.2026
 
+### Geändert
+
+* **Das Classic-Modul haengt jetzt an `wp_enqueue_editor` statt an
+  `admin_enqueue_scripts`.** Der alte Haken lief auf jeder Backend-Seite —
+  Dashboard, Listen, Einstellungen —, obwohl dort kein Editor vorkommt. Den
+  neuen feuert der Kern genau dann, wenn er einen Editor aufbaut
+  (`class-wp-editor.php`, `enqueue_scripts()`), und uebergibt im Parameter, ob
+  TinyMCE dabei ist; ohne TinyMCE laedt das Plugin nichts.
+* **`load_plugin_textdomain()` nur noch im Backend.** Im Frontend hat das
+  Plugin keine Oberflaeche; der Aufruf suchte dort auf jeder Seite nach
+  Sprachdateien.
+
 ### Behoben
 
 * **Gateway Timeout im Backend.** `tinymce_abhaengigkeiten()` rief

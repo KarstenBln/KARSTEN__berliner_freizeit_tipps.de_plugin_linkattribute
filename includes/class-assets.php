@@ -32,6 +32,11 @@ final class Assets {
 	private const TINYMCE_PLUGIN = 'bftlinkattrs';
 
 	/**
+	 * Trägerhandle für die Übersetzungen des Classic-Moduls.
+	 */
+	private const HANDLE_CLASSIC_I18N = 'bft-advanced-link-attributes-classic-i18n';
+
+	/**
 	 * Hängt beide Module ein.
 	 */
 	public function start(): void {
@@ -161,6 +166,12 @@ final class Assets {
 	 * TinyMCE lädt externe Plugins an der Skriptverwaltung von WordPress
 	 * vorbei. Das gebaute Bundle greift zur Laufzeit auf wp.i18n zu — das muss
 	 * also unabhängig davon geladen sein.
+	 *
+	 * Für die Übersetzungen wird ein eigener, leerer Handle angemeldet.
+	 * `wp_set_script_translations()` hängt `wp-i18n` an die Abhängigkeiten des
+	 * übergebenen Handles (class-wp-scripts.php, set_translations). Auf
+	 * `wp-i18n` selbst angewendet hieße das: wp-i18n hängt von sich selbst ab —
+	 * und `WP_Dependencies::all_deps()` läuft endlos.
 	 */
 	public function tinymce_abhaengigkeiten(): void {
 		$bundle = $this->bundle( 'classic' );
@@ -173,8 +184,14 @@ final class Assets {
 			wp_enqueue_script( (string) $abhaengigkeit );
 		}
 
+		// Trägerhandle ohne eigene Datei: Er existiert nur, damit WordPress
+		// die Übersetzungsdatei der Domain ausgibt, bevor TinyMCE das Bundle
+		// nachlädt.
+		wp_register_script( self::HANDLE_CLASSIC_I18N, false, array( 'wp-i18n' ), VERSION, true );
+		wp_enqueue_script( self::HANDLE_CLASSIC_I18N );
+
 		wp_set_script_translations(
-			'wp-i18n',
+			self::HANDLE_CLASSIC_I18N,
 			'bft-advanced-link-attributes',
 			VERZ . '/languages'
 		);

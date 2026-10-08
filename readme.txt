@@ -4,7 +4,7 @@ Tags: links, rel, sponsored, nofollow, editor
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ Die Adresse wird nie angefasst. Das Plugin ändert nur `rel` und `title`.
 Siehe CHANGELOG.md und die Architekturdokumentation im Repository.
 
 == Changelog ==
+
+= 1.0.1 =
+* Behoben: Jede wp-admin-Seite lief in eine Endlosschleife der Skriptauflösung (Gateway Timeout).
 
 = 1.0.0 =
 * Erste Fassung.

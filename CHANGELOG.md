@@ -2,6 +2,19 @@
 
 Dieses Plugin folgt [semantischer Versionierung](https://semver.org/lang/de/).
 
+## 1.0.1 — 08.10.2026
+
+### Behoben
+
+* **Gateway Timeout im Backend.** `tinymce_abhaengigkeiten()` rief
+  `wp_set_script_translations( 'wp-i18n', … )` auf. Diese Funktion hängt
+  `wp-i18n` an die Abhängigkeitsliste des übergebenen Handles
+  (`wp-includes/class-wp-scripts.php`, `set_translations()`) — auf `wp-i18n`
+  selbst angewendet hing das Skript damit von sich selbst ab, und
+  `WP_Dependencies::all_deps()` lief endlos. Betroffen war **jede**
+  wp-admin-Seite, weil der Aufruf an `admin_enqueue_scripts` hing. Die
+  Übersetzungen laufen jetzt über einen eigenen, leeren Trägerhandle.
+
 ## 1.0.0 — 08.10.2026
 
 Erste Fassung.

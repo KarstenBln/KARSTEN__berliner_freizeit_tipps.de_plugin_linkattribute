@@ -1,6 +1,6 @@
 {
   "name": "bft-advanced-link-attributes",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "description": "Erweiterte Linkattribute (sponsored, nofollow, title) fuer den Block- und den Classic-Editor.",
   "license": "GPL-2.0-or-later",

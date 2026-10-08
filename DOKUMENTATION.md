@@ -196,6 +196,13 @@ keine geplanten Aufgaben · keine eigenen Optionen angelegt
 Der Auftrag verlangt, nicht ausgeführte Tests zu benennen. Folgende Punkte aus
 Abschnitt 16 sind **nicht** geprüft:
 
+**Nachtrag 1.0.4:** Das Popover holte sich seinen Anker ueber
+`getFormatType( 'core/link' )`. Diese Funktion exportiert
+`@wordpress/rich-text` nicht — jeder Block mit Text lief damit in die
+Fehlergrenze des Editors. Seitdem rendert `tests/gutenberg-modul.test.js` das
+gebaute Bundle mit React und bedient es; gegen die alte Fassung fallen sechs
+der sieben Faelle durch.
+
 **Editor-Integrationstests im Browser** (Punkte 13–23, 33–40). Dafür wäre eine
 Playwright-Umgebung mit angemeldetem Redakteur nötig; die lokale Instanz hat
 sie nicht. Betroffen sind insbesondere:

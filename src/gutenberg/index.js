@@ -23,7 +23,7 @@
  * nie angewendet und erzeugt daher auch nie Markup.
  */
 
-import { registerFormatType, getFormatType, useAnchor } from '@wordpress/rich-text';
+import { registerFormatType, useAnchor } from '@wordpress/rich-text';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
 // Bewusst nur Komponenten ohne __experimental-Praefix: Diese Namen sind
 // Bestandteil der oeffentlichen Schnittstelle und verschwinden nicht mit der
@@ -112,12 +112,22 @@ function Bearbeiten( { value, onChange, contentRef } ) {
 	const [ offen, setOffen ] = useState( false );
 
 	const bereich = linkAmCursor( value );
+	const amLink = !! bereich && true !== bereich.mehrdeutig;
 
-	// Das Popover haengt sich an denselben Anker wie die Linkbearbeitung des
-	// Cores — also an das <a>-Element selbst, nicht an die Werkzeugleiste.
+	// Das Popover haengt am <a>-Element selbst, nicht an der Werkzeugleiste.
+	//
+	// `useAnchor` liest aus `settings` nur `tagName`, `className` und
+	// `isActive` (wp-includes/js/dist/rich-text.js, use-anchor). Die Angaben
+	// stehen deshalb direkt hier. Frueher holte diese Stelle die Einstellungen
+	// des Formats `core/link` aus der Registrierung — das war aus zwei Gruenden
+	// falsch: `getFormatType` gehoert nicht zur oeffentlichen Schnittstelle von
+	// @wordpress/rich-text (der Aufruf warf, und der Block zeigte "In diesem
+	// Block ist ein Fehler aufgetreten"), und es haette das Popover von einer
+	// fremden Registrierung abhaengig gemacht — Rank Math etwa ersetzt
+	// `core/link` durch eine eigene Fassung.
 	const anker = useAnchor( {
 		editableContentElement: contentRef?.current,
-		settings: getFormatType( 'core/link' ),
+		settings: { tagName: 'a', className: null, isActive: amLink },
 	} );
 
 	// Ohne Link an der Cursorposition hat die Schaltflaeche keinen Bezug.
@@ -125,7 +135,7 @@ function Bearbeiten( { value, onChange, contentRef } ) {
 		return null;
 	}
 
-	const mehrdeutig = true === bereich.mehrdeutig;
+	const mehrdeutig = ! amLink;
 
 	// Wandert der Cursor aus dem Link heraus, schliesst sich das Popover.
 	if ( offen && mehrdeutig ) {

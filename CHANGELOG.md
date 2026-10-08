@@ -2,6 +2,33 @@
 
 Dieses Plugin folgt [semantischer Versionierung](https://semver.org/lang/de/).
 
+## 1.0.4 — 08.10.2026
+
+### Behoben
+
+* **Jeder Block mit Text war im Editor kaputt.** Das Modul rief
+  `getFormatType( 'core/link' )` auf, um dem Popover denselben Anker zu geben
+  wie die Linkbearbeitung des Kerns. Diese Funktion gehoert nicht zur
+  oeffentlichen Schnittstelle von `@wordpress/rich-text` — sie steht weder im
+  npm-Paket noch in `wp.richText`. Der Aufruf warf
+  `TypeError: getFormatType is not a function`, React fing das in der
+  Fehlergrenze des Blocks ab und zeigte „In diesem Block ist ein Fehler
+  aufgetreten und eine Vorschau ist nicht moeglich".
+
+  `useAnchor` liest aus den Einstellungen ohnehin nur `tagName`, `className`
+  und `isActive`. Die stehen jetzt direkt im Aufruf. Nebeneffekt: Das Popover
+  haengt nicht mehr an einer fremden Registrierung — Rank Math etwa ersetzt
+  `core/link` durch eine eigene Fassung.
+
+### Hinzugefuegt
+
+* `tests/gutenberg-modul.test.js`: sieben Pruefungen, die das gebaute Bundle
+  mit React und dem echten `@wordpress/rich-text` rendern und bedienen —
+  Schaltflaeche erscheint nur im Link, Sperre bei zwei Links, Popover oeffnet
+  auf Klick, Uebernehmen schreibt `rel` und `title` und laesst die Adresse in
+  Ruhe, Abbrechen aendert nichts. Gegen das alte Bundle fallen sechs davon
+  durch.
+
 ## 1.0.3 — 08.10.2026
 
 ### Behoben

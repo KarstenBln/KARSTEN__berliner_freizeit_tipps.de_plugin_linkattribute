@@ -2,6 +2,17 @@
 
 Dieses Plugin folgt [semantischer Versionierung](https://semver.org/lang/de/).
 
+## 1.0.3 — 08.10.2026
+
+### Behoben
+
+* **Der Browser blieb am alten Classic-Bundle haengen.** TinyMCE laedt externe
+  Plugins selbst nach, an der Skriptverwaltung von WordPress vorbei — die
+  URL aus `mce_external_plugins` wird genommen, wie sie dasteht. Ohne
+  Versionsangabe liefert der Browser-Cache nach einem Update weiter die alte
+  Datei; der in 1.0.2 behobene Startfehler blieb dadurch sichtbar. Die URL
+  traegt jetzt `?ver=` mit dem Hash des Bundles.
+
 ## 1.0.2 — 08.10.2026
 
 ### Behoben

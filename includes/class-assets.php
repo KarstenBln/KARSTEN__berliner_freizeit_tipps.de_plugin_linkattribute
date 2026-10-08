@@ -130,7 +130,11 @@ final class Assets {
 			return $plugins;
 		}
 
-		$plugins[ self::TINYMCE_PLUGIN ] = $bundle['url'];
+		// Mit Versionsangabe: TinyMCE laedt externe Plugins selbst nach, an
+		// der Skriptverwaltung vorbei. Ohne `ver` haengt der Browser an der
+		// alten Datei fest, bis jemand den Cache leert — nach einem Update
+		// laeuft dann weiter der alte Stand.
+		$plugins[ self::TINYMCE_PLUGIN ] = add_query_arg( 'ver', $bundle['version'], $bundle['url'] );
 
 		return $plugins;
 	}

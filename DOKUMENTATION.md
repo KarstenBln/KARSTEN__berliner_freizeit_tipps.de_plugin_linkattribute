@@ -240,6 +240,38 @@ Tests laufen. Behebung steht aus.
 
 ---
 
+## 4a. Die Hülle um die Linkbearbeitung (seit 1.1.0)
+
+Die Begründung aus 1.0.0 — „`title` übersteht den Rundlauf über
+`unregisteredAttributes`" — gilt für Einlesen und Speichern, **nicht** für den
+Fall, dass jemand den Link danach über die Linkbearbeitung ändert. Das war
+eine Lücke in meiner Prüfung: getestet war der Rundlauf, nicht der Alltag.
+
+Gemessen:
+
+```
+VORHER:  Ein <a title="Kurzinfo" href="https://b.test" rel="sponsored nofollow">Link</a> hier.
+NACHHER: Ein <a href="https://b.test" rel="nofollow">Link</a> hier.
+```
+
+Die Linkbearbeitung baut ihr Format neu auf, allein aus den eigenen Feldern
+(`createLinkFormat()` in `wp-includes/js/dist/format-library.js`; Rank Math
+genauso), und legt es mit `applyFormat` über den Link — das ersetzt.
+
+`src/gutenberg/link-huelle.js` meldet `core/link` deshalb neu an: dieselben
+Einstellungen, dieselbe Oberfläche, nur `onChange` umhüllt.
+`src/gutenberg/attribute-retten.js` führt danach zusammen. Gerettet wird nur
+bei eindeutiger Zuordnung — berührt ein Linkabschnitt im neuen Wert genau
+einen Link des alten, gilt er als derselbe; sonst bleibt er unangetastet.
+
+**`rel` wird bewusst nicht gerettet.** Welche Tokens dort stehen, entscheidet
+die Oberfläche, die gerade bedient wird. Folge: Mit der **Kern**-Oberfläche
+allein geht `rel="sponsored"` bei einer Linkänderung verloren, weil
+`createLinkFormat()` dieses Token nicht kennt. Auf der Zielseite trägt Rank
+Math eigene Kästchen für nofollow und sponsored und hält sie dadurch.
+
+---
+
 ## 5. Bekannte Einschränkungen
 
 ### 5.1 Button-Block wird nicht unterstützt

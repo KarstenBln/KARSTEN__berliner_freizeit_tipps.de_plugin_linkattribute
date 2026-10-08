@@ -37,6 +37,7 @@ import { __ } from '@wordpress/i18n';
 import { hatRelToken } from '../shared/rel-tokens';
 import { attributeAnwenden } from './attribute-anwenden';
 import { linkAmCursor } from './link-bereich';
+import { huelleAnlegen } from './link-huelle';
 
 const NAME = 'bft/link-attributes';
 
@@ -212,3 +213,7 @@ function registrieren() {
 }
 
 registrieren();
+
+// Die vorhandene Linkbearbeitung umhuellen, damit sie den Titel nicht bei der
+// naechsten Aenderung wieder wegwirft. Siehe link-huelle.js.
+huelleAnlegen();

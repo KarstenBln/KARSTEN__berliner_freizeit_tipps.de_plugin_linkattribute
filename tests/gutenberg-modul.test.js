@@ -21,6 +21,7 @@ const ReactDOM = require( 'react-dom/client' );
 const richText = require( '@wordpress/rich-text' );
 const i18n = require( '@wordpress/i18n' );
 const element = require( '@wordpress/element' );
+const data = require( '@wordpress/data' );
 
 const BUNDLE = readFileSync( join( __dirname, '..', 'build', 'gutenberg.js' ), 'utf8' );
 
@@ -29,7 +30,7 @@ global.IS_REACT_ACT_ENVIRONMENT = true;
 // Dieselbe Attributabbildung wie WordPress 7.1.2
 // (wp-includes/js/dist/format-library.js). Ohne registriertes core/link
 // erkennt rich-text ein <a> nicht als Linkformat.
-beforeAll( () => {
+beforeEach( () => {
 	richText.registerFormatType( 'core/link', {
 		title: 'Link',
 		tagName: 'a',
@@ -47,8 +48,13 @@ beforeAll( () => {
 	} );
 } );
 
-afterAll( () => {
-	richText.unregisterFormatType( 'core/link' );
+// Jeder Testfall laedt das Bundle neu; dabei meldet es Formate an und legt
+// seine Huelle um `core/link`. Darum wird die Registrierung zwischen den
+// Faellen vollstaendig geleert.
+afterEach( () => {
+	for ( const typ of data.select( richText.store ).getFormatTypes() ) {
+		richText.unregisterFormatType( typ.name );
+	}
 } );
 
 /** Werkzeugleisten-Schaltflaeche: merkt sich onClick und die Sperre. */
@@ -93,18 +99,12 @@ function schaltflaeche( props ) {
  * @return {Object} Die Einstellungen, mit denen sich das Format registriert hat.
  */
 function bundleLaden() {
-	const registriert = {};
-
 	window.ReactJSXRuntime = require( 'react/jsx-runtime' );
 	window.wp = {
 		element,
 		i18n,
-		richText: {
-			...richText,
-			registerFormatType: ( name, einstellungen ) => {
-				registriert[ name ] = einstellungen;
-			},
-		},
+		data,
+		richText,
 		components: {
 			Popover: ( props ) => React.createElement( 'div', { 'data-rolle': 'popover' }, props.children ),
 			Button: schaltflaeche,
@@ -117,7 +117,7 @@ function bundleLaden() {
 	// eslint-disable-next-line no-new-func
 	new Function( BUNDLE )();
 
-	return registriert;
+	return data.select( richText.store ).getFormatType( 'bft/link-attributes' );
 }
 
 /**
@@ -145,7 +145,7 @@ function wertMitCursor( html, start, end = start ) {
  * @return {Object} Hilfsmittel fuer den Test.
  */
 function rendern( wert, onChange = () => {} ) {
-	const Edit = bundleLaden()[ 'bft/link-attributes' ].edit;
+	const Edit = bundleLaden().edit;
 
 	const halter = document.createElement( 'div' );
 	document.body.appendChild( halter );
@@ -203,7 +203,7 @@ const LINK_HTML = 'Ein <a href="https://beispiel.test/?aff=12345&amp;cmp=sommer"
 
 describe( 'Block-Editor-Bundle', () => {
 	it( 'registriert ein Format, das nie Markup erzeugt', () => {
-		const einstellungen = bundleLaden()[ 'bft/link-attributes' ];
+		const einstellungen = bundleLaden();
 
 		expect( einstellungen ).toBeTruthy();
 		expect( einstellungen.tagName ).toBe( 'span' );

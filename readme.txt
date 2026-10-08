@@ -4,7 +4,7 @@ Tags: links, rel, sponsored, nofollow, editor
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.4
+Stable tag: 1.1.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,12 @@ Es gibt keine Einstellungsseite. Das Plugin ist sofort einsatzbereit.
 
 == Frequently Asked Questions ==
 
+= Bleibt der Titel erhalten, wenn ich den Link danach bearbeite? =
+
+Ja. Die Linkbearbeitung von WordPress baut ihr Format bei jeder Änderung neu auf und kennt kein `title` — ohne Zutun wäre der Titel danach weg. Das Plugin legt sich deshalb um die vorhandene Linkbearbeitung und trägt den Titel wieder ein. Die Oberfläche selbst bleibt unverändert, auch wenn ein anderes Plugin sie ersetzt hat.
+
+Nicht zurückgeholt werden `rel`-Tokens: welche dort stehen, entscheidet die Oberfläche, die gerade bedient wird.
+
 = Was passiert mit den Attributen, wenn ich das Plugin deaktiviere? =
 
 Nichts. Sie stehen im HTML des Beitrags und werden im Frontend weiterhin ausgeliefert. Zum Bearbeiten brauchst du das Plugin wieder.
@@ -66,6 +72,9 @@ Die Adresse wird nie angefasst. Das Plugin ändert nur `rel` und `title`.
 Siehe CHANGELOG.md und die Architekturdokumentation im Repository.
 
 == Changelog ==
+
+= 1.1.0 =
+* Der Link-Titel überlebt jetzt auch, wenn der Link danach über die Linkbearbeitung geändert wird.
 
 = 1.0.4 =
 * Behoben: Jeder Block mit Text meldete im Editor „In diesem Block ist ein Fehler aufgetreten".

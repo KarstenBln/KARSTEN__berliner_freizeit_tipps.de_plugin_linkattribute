@@ -2,6 +2,49 @@
 
 Dieses Plugin folgt [semantischer Versionierung](https://semver.org/lang/de/).
 
+## 1.1.0 — 08.10.2026
+
+### Hinzugefuegt
+
+* **Der Link-Titel ueberlebt jetzt spaetere Aenderungen am Link.**
+
+  Gemessener Ausgangspunkt: Die Linkbearbeitung baut ihr Format bei jeder
+  Aenderung neu auf, allein aus ihren eigenen Feldern — im Kern
+  `createLinkFormat()` in `wp-includes/js/dist/format-library.js`, in der
+  Ersatzfassung von Rank Math genauso — und legt es mit `applyFormat` ueber
+  den Link. `applyFormat` ersetzt:
+
+      vorher:  <a title="Kurzinfo" href="…" rel="sponsored nofollow">Link</a>
+      nachher: <a href="…" rel="nofollow">Link</a>
+
+  `src/gutenberg/link-huelle.js` meldet `core/link` deshalb neu an — mit
+  derselben Oberflaeche, aber umhuelltem `onChange`.
+  `src/gutenberg/attribute-retten.js` vergleicht den Wert vor und nach der
+  Aenderung und traegt die verlorenen, nicht abgebildeten Attribute wieder
+  ein. Die Einstellungen kommen aus dem oeffentlichen Store
+  (`select( store ).getFormatType`); ein Abonnement legt die Huelle erneut an,
+  wenn jemand `core/link` spaeter ersetzt — Rank Math tut das in
+  `wp.domReady`, also je nach Skriptreihenfolge vor oder nach uns.
+
+  Bewusst **nicht** zurueckgeholt wird `rel`. Welche Tokens dort stehen,
+  entscheidet die Oberflaeche, die der Redakteur gerade bedient; nimmt jemand
+  in Rank Math das Haekchen „sponsored" heraus, waere ein Zurueckschreiben
+  falsch, und unterscheiden liessen sich die beiden Faelle nicht.
+
+* Zwoelf Pruefungen dazu: acht fuer das Zusammenfuehren
+  (`tests/attribute-retten.test.js`) und vier gegen das gebaute Bundle mit
+  echtem `@wordpress/data` und einer nachgebauten fremden Linkbearbeitung
+  (`tests/link-huelle.test.js`) — Huelle vor und nach fremder Anmeldung,
+  Titel bleibt bei einer Aenderung durch die fremde Oberflaeche, kein Absturz
+  ohne angemeldete Linkbearbeitung.
+
+### Behoben
+
+* Zwei geladene Fassungen des Bundles haetten sich gegenseitig endlos
+  umhuellt (`RangeError: Maximum call stack size exceeded`). Die Huelle traegt
+  jetzt ein Kennzeichen, das jede Instanz an jeder anderen erkennt. Im Test
+  aufgefallen, nicht im Betrieb.
+
 ## 1.0.4 — 08.10.2026
 
 ### Behoben

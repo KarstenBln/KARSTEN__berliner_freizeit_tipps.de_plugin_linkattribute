@@ -25,14 +25,12 @@
 
 import { registerFormatType, getFormatType, useAnchor } from '@wordpress/rich-text';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
-import {
-	Button,
-	CheckboxControl,
-	Popover,
-	TextControl,
-	__experimentalVStack as VStack,
-	__experimentalHStack as HStack,
-} from '@wordpress/components';
+// Bewusst nur Komponenten ohne __experimental-Praefix: Diese Namen sind
+// Bestandteil der oeffentlichen Schnittstelle und verschwinden nicht mit der
+// naechsten WordPress-Fassung (Auftrag 2 und 7.2). Das bisschen Layout
+// erledigen zwei Container mit Inline-Abstand — dafuer braucht es keine
+// instabile API und kein zusaetzliches Stylesheet.
+import { Button, CheckboxControl, Popover, TextControl } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -70,7 +68,7 @@ function Einstellungen( { format, onSpeichern, onAbbrechen } ) {
 				onSpeichern( { sponsored, nofollow, titel } );
 			} }
 		>
-			<VStack spacing={ 3 }>
+			<div style={ { display: 'grid', gap: '12px', minWidth: '260px', padding: '8px' } }>
 				<CheckboxControl
 					__nextHasNoMarginBottom
 					label={ __( 'Sponsored (Werbe-/Affiliate-Link)', 'bft-advanced-link-attributes' ) }
@@ -94,15 +92,15 @@ function Einstellungen( { format, onSpeichern, onAbbrechen } ) {
 					value={ titel }
 					onChange={ setTitel }
 				/>
-				<HStack justify="flex-end" spacing={ 2 }>
+				<div style={ { display: 'flex', justifyContent: 'flex-end', gap: '8px' } }>
 					<Button variant="tertiary" onClick={ onAbbrechen }>
 						{ __( 'Abbrechen', 'bft-advanced-link-attributes' ) }
 					</Button>
 					<Button variant="primary" type="submit">
 						{ __( 'Übernehmen', 'bft-advanced-link-attributes' ) }
 					</Button>
-				</HStack>
-			</VStack>
+				</div>
+			</div>
 		</form>
 	);
 }

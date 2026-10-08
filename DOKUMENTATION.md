@@ -104,6 +104,23 @@ Umfasst eine Auswahl mehrere verschiedene Links, meldet die Funktion
 `{ mehrdeutig: true }`, und die Schaltfläche bleibt abgeschaltet statt
 stillschweigend mehrere Links zu ändern (Auftrag 6.2).
 
+### Keine instabilen Schnittstellen
+
+Im gesamten Code wird **keine einzige** mit `__experimental` gekennzeichnete
+WordPress-API verwendet. Eine erste Fassung des Popovers nutzte
+`__experimentalVStack` und `__experimentalHStack` für das Layout; beide wurden
+durch zwei Container mit Inline-Abstand ersetzt. Das Layout ist dieselbe
+Sache wert wie eine Abhängigkeit, die mit der nächsten WordPress-Fassung
+verschwinden kann — nämlich nichts.
+
+Verwendet werden ausschließlich: `registerFormatType`, `applyFormat`,
+`getFormatType`, `useAnchor` (alle `@wordpress/rich-text`),
+`RichTextToolbarButton` (`@wordpress/block-editor`), `Button`,
+`CheckboxControl`, `Popover`, `TextControl` (`@wordpress/components`),
+`useState`, `useEffect` (`@wordpress/element`) und `__` (`@wordpress/i18n`).
+Jeder dieser Namen wurde im ausgelieferten Core als echter Export
+nachgewiesen.
+
 ### Trennung der Module
 
 | Bundle | Größe | Abhängigkeiten |

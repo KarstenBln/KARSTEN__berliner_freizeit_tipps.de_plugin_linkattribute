@@ -1,0 +1,19 @@
+{
+  "name": "bft-advanced-link-attributes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Erweiterte Linkattribute (sponsored, nofollow, title) fuer den Block- und den Classic-Editor.",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "test": "wp-scripts test-unit-js",
+    "lint:js": "wp-scripts lint-js src",
+    "paket": "npm run build && bash bin/paket-bauen.sh"
+  },
+  "devDependencies": {
+    "@wordpress/rich-text": "^7.57.0",
+    "@wordpress/scripts": "30.24.0",
+    "typescript": "^7.0.2"
+  }
+}

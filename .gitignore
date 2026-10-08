@@ -1,0 +1,7 @@
+node_modules/
+*.zip
+.DS_Store
+
+# build/ wird bewusst mit eingecheckt: Das Plugin laeuft in der lokalen
+# Entwicklungsumgebung per Symlink direkt aus diesem Verzeichnis, und ein
+# frischer Klon soll ohne npm sofort lauffaehig sein.

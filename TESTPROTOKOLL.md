@@ -49,7 +49,7 @@ verlinken.
 | A23 | Frontend | Beitrag im Frontend ansehen, Quelltext prüfen | `rel` und `title` sind ausgeliefert; Maus auf dem Link zeigt die Kurzinfo | |
 | A24 | Kopieren und Einfügen | Verlinkten Text kopieren, in einen neuen Absatz einfügen | Der eingefügte Link bringt `rel` und `title` mit | |
 | A25 | Block duplizieren | Blockmenü → Duplizieren | Die Attribute sind im Duplikat vorhanden | |
-| A26 | Andere Blocktypen | Dasselbe kurz in Überschrift, Liste und Zitat durchspielen (ein Link, Sponsored + Titel) | Schaltfläche erscheint, Attribute landen im HTML | |
+| A26 | Andere Blocktypen | Dasselbe kurz in Überschrift, Liste und Zitat durchspielen (ein Link, Sponsored + Titel) | Schaltfläche erscheint, Attribute landen im HTML | Liste **erledigt 08.10.**; Überschrift und Zitat offen |
 | A27 | Code-Ansicht hin und zurück | Strg/Cmd + Umschalt + Alt + M, zurück in die visuelle Ansicht | Keine Validierungswarnung, Attribute unverändert | |
 | A28 | Zusammen mit Textauszeichnung | Einen Teil des Linktextes fett setzen, dann Attribute ändern | Fett bleibt erhalten, Link bleibt ein Element | |
 | A29 | Fehlerkonsole | Browser-Konsole während A1–A28 offen halten | Keine Fehler oder Warnungen mit `bft` | |
@@ -100,6 +100,24 @@ Verknüpfen-Schaltfläche verlinken.
 | C2 | Erneut aktivieren | Aktivieren, Beitrag öffnen | Popover zeigt die gespeicherten Werte wieder an | |
 | C3 | Deinstallieren | Auf einer **Testinstallation** löschen | Beiträge unverändert, keine Rückstände (`uninstall.php` tut absichtlich nichts) | |
 | C4 | Frontend-Fußabdruck | Frontend-Quelltext nach `bft-advanced-link-attributes` durchsuchen | Kein Treffer — kein Skript, kein Stylesheet | |
+
+---
+
+## Wo wir stehen (Stand 08.10.2026, Abend)
+
+Erledigt: **A1**, **A3**, **A26** (nur Liste), **D1**.
+
+Als Nächstes dran, alles im selben Absatz mit einem Link:
+**A4** (keine rechte Seitenleiste), **A5** (Fokus auf dem ersten Feld),
+**A6** (Tab-Reihenfolge), **A7/A8/A9** (Abbrechen, Esc, Danebenklicken ändern
+nichts), **A2** (Eintrag verschwindet ohne Link). Danach Portion 2 ab **A10**.
+
+Browser-Konsole dabei offen lassen (**A29**).
+
+Vorbedingung für den Durchlauf: `core/freeform` steht nicht in der
+Positivliste des Themes (`bft-child/inc/setup.php`), der Classic-Block ist
+deshalb nicht in der Blockauswahl. Für Gruppe B entweder per Code anlegen oder
+den Block dort vorübergehend eintragen.
 
 ---
 

@@ -125,7 +125,9 @@ function registrieren() {
 	tinymce.PluginManager.add( PLUGIN, function ( editor ) {
 		editor.addButton( PLUGIN, {
 			title: __( 'Linkattribute', 'bft-advanced-link-attributes' ),
-			icon: 'dashicon dashicons-admin-links',
+			// Kein Kettensymbol — das traegt in dieser Leiste schon "Link
+			// einfuegen/aendern". Siehe die Begruendung in gutenberg/index.js.
+			icon: 'dashicon dashicons-tag',
 			disabled: true,
 
 			onclick() {

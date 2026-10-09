@@ -2,6 +2,17 @@
 
 Dieses Plugin folgt [semantischer Versionierung](https://semver.org/lang/de/).
 
+## 1.1.2 — 09.10.2026
+
+### Geaendert
+
+* **Eigenes Symbol.** Die Schaltflaeche trug dieselbe Kette wie „Link
+  einfuegen/aendern" des Kerns und stand in beiden Editoren direkt daneben —
+  im Classic-Editor sogar als dritte Schaltflaeche hinter „Verknuepfung
+  entfernen", also zwei gleiche Ketten mit einem Fremdkoerper dazwischen. Das
+  liest niemand als zwei verschiedene Funktionen. Jetzt ein Etikett
+  (`tag` beziehungsweise `dashicons-tag`) fuer die Attribute am Link.
+
 ## 1.1.1 — 09.10.2026
 
 ### Geaendert

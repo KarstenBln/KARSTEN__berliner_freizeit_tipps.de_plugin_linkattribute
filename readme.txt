@@ -4,7 +4,7 @@ Tags: links, rel, sponsored, nofollow, editor
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,9 @@ Die Adresse wird nie angefasst. Das Plugin ändert nur `rel` und `title`.
 Siehe CHANGELOG.md und die Architekturdokumentation im Repository.
 
 == Changelog ==
+
+= 1.1.2 =
+* Eigenes Symbol statt der Kette, die schon „Link einfügen/ändern" trägt.
 
 = 1.1.1 =
 * Die Schaltfläche sitzt jetzt direkt neben der Link-Schaltfläche statt im Aufklappmenü.

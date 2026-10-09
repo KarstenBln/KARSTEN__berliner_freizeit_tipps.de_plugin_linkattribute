@@ -153,7 +153,12 @@ function Bearbeiten( { value, onChange, contentRef } ) {
 				// Link-Schaltfleche — dort, wo ohnehin mit Links gearbeitet
 				// wird, und ein Klick statt zwei.
 				name="link"
-				icon="admin-links"
+				// Bewusst **nicht** das Kettensymbol: Daneben steht die
+				// Link-Schaltflaeche des Kerns mit genau derselben Kette, und
+				// zwei gleiche Symbole nebeneinander liest niemand als zwei
+				// verschiedene Funktionen. Das Etikett steht fuer die
+				// Attribute am Link.
+				icon="tag"
 				title={ __( 'Linkattribute', 'bft-advanced-link-attributes' ) }
 				onClick={ () => setOffen( ( zustand ) => ! zustand ) }
 				isActive={ offen }

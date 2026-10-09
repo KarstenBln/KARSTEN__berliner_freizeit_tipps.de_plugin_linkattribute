@@ -24,7 +24,7 @@ verlinken.
 
 | # | Fall | Handlung | Erwartet | Beobachtung |
 |---|---|---|---|---|
-| A1 | Schaltfläche erscheint | Cursor in den Link setzen | Das Kettensymbol **Linkattribute** steht direkt in der Werkzeugleiste, neben der Link-Schaltfläche | seit 1.1.1 erneut zu prüfen |
+| A1 | Schaltfläche erscheint | Cursor in den Link setzen | Das Etikettsymbol **Linkattribute** steht direkt in der Werkzeugleiste, neben der Link-Schaltfläche (seit 1.1.2 kein Kettensymbol mehr) | seit 1.1.1 erneut zu prüfen |
 | A2 | Schaltfläche fehlt ohne Link | Cursor in unverlinkten Text setzen | Keine Schaltfläche **Linkattribute** | |
 | A3 | Popover öffnen | Auf **Linkattribute** klicken | Popover öffnet **am Link**, nicht an der Werkzeugleiste; Felder: Sponsored, Nofollow, Link-Titel | **erledigt 08.10.** |
 | A4 | Rechte Seitenleiste unberührt | Blockeinstellungen rechts öffnen | **Kein** Abschnitt des Plugins dort (Auftrag: ausdrücklich nicht die Seitenleiste) | |
@@ -80,7 +80,7 @@ Verknüpfen-Schaltfläche verlinken.
 
 | # | Fall | Handlung | Erwartet | Beobachtung |
 |---|---|---|---|---|
-| B1 | Schaltfläche vorhanden | Werkzeugleiste des Classic-Blocks ansehen | Kettensymbol **Linkattribute** direkt hinter „Verknüpfung entfernen" | |
+| B1 | Schaltfläche vorhanden | Werkzeugleiste des Classic-Blocks ansehen | Etikettsymbol **Linkattribute** direkt hinter „Verknüpfung entfernen" | **erledigt 09.10.**, Symbol seit 1.1.2 geändert |
 | B2 | Ausgegraut ohne Link | Cursor in unverlinkten Text | Schaltfläche ist ausgegraut und nicht klickbar | |
 | B3 | Aktiv im Link | Cursor in den Link | Schaltfläche wird sofort bedienbar | |
 | B4 | Dialog zeigt Bestand | Schaltfläche klicken | TinyMCE-Dialog mit beiden Kästchen und Titelfeld, vorhandene Werte vorbelegt | |
@@ -111,7 +111,7 @@ Protokolls ist Komfort.
 | # | Fall | Handlung | Erwartet | Beobachtung |
 |---|---|---|---|---|
 | E1 | Blockvalidierung | Beitrag mit Attributen speichern, Seite neu laden, Beitrag öffnen | **Keine** Warnung „Dieser Block enthält unerwarteten Inhalt". WordPress baut einen ungültigen Block still neu auf und verliert dabei Inhalt | **erledigt 09.10.** |
-| E2 | Altbestand | Beitrag **#9** öffnen, nichts ändern | Keine Warnung; im Popover stehen „Domäne Dahlem" und Nofollow | **offen** |
+| E2 | Altbestand | Beitrag **#9** öffnen, nichts ändern | Keine Warnung; im Popover stehen „Domäne Dahlem" und Nofollow | **erledigt 09.10.** — auch Wechsel in die Code-Ansicht und zurück ohne Befund (A27) |
 | E3 | Fremde rel-Werte | An einem Link mit `target="_blank"` Sponsored setzen | `noopener` und `noreferrer` bleiben erhalten — sonst Sicherheitsloch im Frontend | **erledigt 09.10.** (Listenelement: noopener, noreferrer und nofollow nach dem Speichern erhalten) |
 | E4 | Zurücknehmen | Haken entfernen, Titel leeren, in Rank Math „sponsored" herausnehmen | Kein `rel=""`, kein `title=""`, sponsored kommt nicht durch die Hülle zurück | **erledigt 09.10.** (sponsored ↔ nofollow getauscht, gespeichert, sitzt) |
 | E5 | Nur ein `<a>` | Nach mehreren Speichervorgängen ⋮ → Als HTML bearbeiten | Genau **ein** `<a>`, kein verschachteltes, kein `<span class="bft-link-attributes-platzhalter">` | **offen** |
@@ -140,8 +140,10 @@ Erledigt am 09.10.: **A22/E1** (speichern, neu laden, keine Warnung),
 (zurücknehmen, sponsored ↔ nofollow tauschen), **A24** (kopieren und
 einfügen), **A26** nun auch Classic-Block, **B** (Classic-Editor).
 
-Offen und wichtig: **E2** (Altbestand, Beitrag #9) und **E5** (genau ein
-`<a>`).
+Erledigt am 09.10. zusätzlich: **E2** (Altbestand #9, inkl. Code-Ansicht,
+also auch **A27**).
+
+Offen und wichtig: nur noch **E5** (genau ein `<a>`).
 
 Als Nächstes dran, alles im selben Absatz mit einem Link:
 **A4** (keine rechte Seitenleiste), **A5** (Fokus auf dem ersten Feld),

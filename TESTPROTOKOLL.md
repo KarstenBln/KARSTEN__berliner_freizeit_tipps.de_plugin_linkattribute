@@ -103,9 +103,45 @@ Verknüpfen-Schaltfläche verlinken.
 
 ---
 
+## E. Vor dem Livegang — die Fälle mit Schadenspotenzial
+
+Fünf Punkte entscheiden, ob Inhalte Schaden nehmen können. Der Rest des
+Protokolls ist Komfort.
+
+| # | Fall | Handlung | Erwartet | Beobachtung |
+|---|---|---|---|---|
+| E1 | Blockvalidierung | Beitrag mit Attributen speichern, Seite neu laden, Beitrag öffnen | **Keine** Warnung „Dieser Block enthält unerwarteten Inhalt". WordPress baut einen ungültigen Block still neu auf und verliert dabei Inhalt | **erledigt 09.10.** |
+| E2 | Altbestand | Beitrag **#9** öffnen, nichts ändern | Keine Warnung; im Popover stehen „Domäne Dahlem" und Nofollow | **offen** |
+| E3 | Fremde rel-Werte | An einem Link mit `target="_blank"` Sponsored setzen | `noopener` und `noreferrer` bleiben erhalten — sonst Sicherheitsloch im Frontend | **erledigt 09.10.** (Listenelement: noopener, noreferrer und nofollow nach dem Speichern erhalten) |
+| E4 | Zurücknehmen | Haken entfernen, Titel leeren, in Rank Math „sponsored" herausnehmen | Kein `rel=""`, kein `title=""`, sponsored kommt nicht durch die Hülle zurück | **erledigt 09.10.** (sponsored ↔ nofollow getauscht, gespeichert, sitzt) |
+| E5 | Nur ein `<a>` | Nach mehreren Speichervorgängen ⋮ → Als HTML bearbeiten | Genau **ein** `<a>`, kein verschachteltes, kein `<span class="bft-link-attributes-platzhalter">` | **offen** |
+
+### Beiträge aus dem Bestand zum Prüfen
+
+Stand 09.10.2026 in der lokalen Datenbank: 986 Beiträge mit `title=` oder
+`rel=` an einem `<a>`; davon 649 ohne Blockmarkup (öffnen als Classic-Block),
+30 mit Blockmarkup **und** `title` **und** `rel`, 280 mit Blockmarkup und nur
+`title`.
+
+* **#9** „Domäne Dahlem" — `title` + `target="_blank"` +
+  `rel="nofollow noopener noreferrer"`. Der beste Einzelfall: Altbestand,
+  alter Titel und fremde rel-Werte in einem.
+* Weitere mit `title` + `rel`: **#486**, **#749**, **#764**
+* Nur `title`: **#2**, **#65**, **#85**, **#94**
+
+---
+
 ## Wo wir stehen (Stand 08.10.2026, Abend)
 
-Erledigt: **A1**, **A3**, **A26** (nur Liste), **D1**.
+Erledigt am 08.10.: **A1**, **A3**, **A26** (nur Liste), **D1**.
+
+Erledigt am 09.10.: **A22/E1** (speichern, neu laden, keine Warnung),
+**A16/E3** (noopener, noreferrer und nofollow bleiben), **A14/A15/D4/E4**
+(zurücknehmen, sponsored ↔ nofollow tauschen), **A24** (kopieren und
+einfügen), **A26** nun auch Classic-Block, **B** (Classic-Editor).
+
+Offen und wichtig: **E2** (Altbestand, Beitrag #9) und **E5** (genau ein
+`<a>`).
 
 Als Nächstes dran, alles im selben Absatz mit einem Link:
 **A4** (keine rechte Seitenleiste), **A5** (Fokus auf dem ersten Feld),

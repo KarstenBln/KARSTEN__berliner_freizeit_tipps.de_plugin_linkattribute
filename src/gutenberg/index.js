@@ -146,6 +146,13 @@ function Bearbeiten( { value, onChange, contentRef } ) {
 	return (
 		<>
 			<RichTextToolbarButton
+				// Ohne `name` sammelt die Werkzeugleiste die Schaltflaeche in
+				// ihr Aufklappmenue; eigene Plaetze gibt es nur fuer `bold`,
+				// `italic`, `link` und `unknown` (block-editor.min.js,
+				// FormatToolbar). Mit `name="link"` sitzt sie direkt neben der
+				// Link-Schaltfleche — dort, wo ohnehin mit Links gearbeitet
+				// wird, und ein Klick statt zwei.
+				name="link"
 				icon="admin-links"
 				title={ __( 'Linkattribute', 'bft-advanced-link-attributes' ) }
 				onClick={ () => setOffen( ( zustand ) => ! zustand ) }

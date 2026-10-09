@@ -2,6 +2,17 @@
 
 Dieses Plugin folgt [semantischer Versionierung](https://semver.org/lang/de/).
 
+## 1.1.1 — 09.10.2026
+
+### Geaendert
+
+* **Die Schaltflaeche sitzt jetzt direkt in der Werkzeugleiste**, neben der
+  Link-Schaltflaeche, statt in deren Aufklappmenue. Die Werkzeugleiste
+  rendert eigene Plaetze nur fuer `bold`, `italic`, `link` und `unknown` und
+  sammelt alles uebrige in einem Menue (`block-editor.min.js`,
+  FormatToolbar). `name="link"` legt die Schaltflaeche in den Platz des
+  Links — ein Klick statt zwei.
+
 ## 1.1.0 — 08.10.2026
 
 ### Hinzugefuegt

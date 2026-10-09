@@ -24,7 +24,7 @@ verlinken.
 
 | # | Fall | Handlung | Erwartet | Beobachtung |
 |---|---|---|---|---|
-| A1 | Schaltfläche erscheint | Cursor in den Link setzen | Im Aufklappmenü `⌄` der Werkzeugleiste steht der Eintrag **Linkattribute**. (Die Leiste rendert eigene Plätze nur für `bold`, `italic`, `link` und `unknown`; alles andere sammelt sie in diesem Menü — `block-editor.min.js`, FormatToolbar) | **erledigt 08.10.** |
+| A1 | Schaltfläche erscheint | Cursor in den Link setzen | Das Kettensymbol **Linkattribute** steht direkt in der Werkzeugleiste, neben der Link-Schaltfläche | seit 1.1.1 erneut zu prüfen |
 | A2 | Schaltfläche fehlt ohne Link | Cursor in unverlinkten Text setzen | Keine Schaltfläche **Linkattribute** | |
 | A3 | Popover öffnen | Auf **Linkattribute** klicken | Popover öffnet **am Link**, nicht an der Werkzeugleiste; Felder: Sponsored, Nofollow, Link-Titel | **erledigt 08.10.** |
 | A4 | Rechte Seitenleiste unberührt | Blockeinstellungen rechts öffnen | **Kein** Abschnitt des Plugins dort (Auftrag: ausdrücklich nicht die Seitenleiste) | |
@@ -114,10 +114,13 @@ nichts), **A2** (Eintrag verschwindet ohne Link). Danach Portion 2 ab **A10**.
 
 Browser-Konsole dabei offen lassen (**A29**).
 
-Vorbedingung für den Durchlauf: `core/freeform` steht nicht in der
-Positivliste des Themes (`bft-child/inc/setup.php`), der Classic-Block ist
-deshalb nicht in der Blockauswahl. Für Gruppe B entweder per Code anlegen oder
-den Block dort vorübergehend eintragen.
+Seit 09.10. steht `core/freeform` wieder in der Positivliste des Themes
+(`bft-child/inc/setup.php`) — der Block „Klassisch" ist also normal über die
+Blockauswahl einzufügen, Gruppe B braucht keinen Umweg mehr.
+
+Ebenfalls seit 09.10.: Die Schaltfläche **Linkattribute** sitzt direkt neben
+der Link-Schaltfläche, nicht mehr im Aufklappmenü `⌄` (Plugin 1.1.1).
+**A1** ist damit erneut zu prüfen.
 
 ---
 
